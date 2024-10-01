@@ -11,9 +11,18 @@ import 'package:taxi/Utils/app_colors.dart';
 import 'package:taxi/Utils/helper_methods.dart';
 import 'package:taxi/Widgets/google_map_widget_booking.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
-class ActiveWidget extends StatelessWidget {
+class ActiveWidget extends StatefulWidget {
   const ActiveWidget({super.key});
+
+  @override
+  State<ActiveWidget> createState() => _ActiveWidgetState();
+}
+
+class _ActiveWidgetState extends State<ActiveWidget> {
 
   @override
   Widget build(BuildContext context) {

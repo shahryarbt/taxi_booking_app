@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 child: SizedBox(
                                   width: 150,
-                                  height: 130,
+                                  height: 150,
                                   child: Card(
                                     color: AppColors.primary,
                                     child: Column(
@@ -327,8 +327,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     children: [
                                                       Center(
                                                         child: Container(
-                                                          width: 60,
-                                                          height: 60,
+                                                          width: 40,
+                                                          height: 40,
                                                           decoration:
                                                               BoxDecoration(
                                                             borderRadius:
@@ -360,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .blackColor,
                                                         ),
                                                       ),
-                                                      heightGap(10),
+                                                      heightGap(5),
                                                       TextWidget(
                                                         textAlign:
                                                             TextAlign.center,

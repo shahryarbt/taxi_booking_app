@@ -170,17 +170,11 @@ class _BookRideScreenState extends State<BookRideScreen> {
                                     heightGap(10),
                                     InkWell(
                                       onTap: () async {
-                                        // await context
-                                        //     .read<BookRideProvider>()
-                                        //     .isRideNowUpdate(value: false);
                                         Navigator.of(context).pushNamed(
                                             ScheduleRideScreen.routeName);
-                                        //  context.read<BookRideProvider>().updateLatLong();
                                       },
                                       child: ListTileCardWidget(
-                                          titleText:
-                                              AppLocalizations.of(context)!
-                                                  .now),
+                                          titleText: 'Schedule later'),
                                     ),
                                     heightGap(10),
                                     Consumer<BookRideProvider>(
@@ -252,183 +246,184 @@ class _BookRideScreenState extends State<BookRideScreen> {
                                         )),
                                       ],
                                     ),*/
-                                    heightGap(10),
-                                    TextWidget(
-                                      color: AppColors.blackColor,
-                                      fontWeight: FontWeight.w500,
-                                      text: AppLocalizations.of(context)!
-                                          .chooseDriverGender,
-                                    ),
-                                    heightGap(10),
-                                    Consumer<BookRideProvider>(
-                                      builder: (context, value, child) {
-                                        return Row(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () async {
-                                                //  await  context.read<BookRideProvider>().updateLatLong();
-                                                await context
-                                                    .read<BookRideProvider>()
-                                                    .selectGender(
-                                                        gender: 'Male');
-                                              },
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    elevation: 2,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            side: BorderSide(
-                                                              color: value.gender ==
-                                                                      'Male'
-                                                                  ? AppColors
-                                                                      .primary
-                                                                  : AppColors
-                                                                      .white,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12)),
-                                                    child: SizedBox(
-                                                      width: 150,
-                                                      height: 120,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                            width: 70,
-                                                            height: 70,
-                                                            decoration: BoxDecoration(
-                                                                color: AppColors
-                                                                    .greyStatusBar,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100)),
-                                                            child:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(8.0),
-                                                              child: SvgPic(
-                                                                image: AppImages
-                                                                    .man,
-                                                                fit: BoxFit
-                                                                    .contain,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          heightGap(10),
-                                                          const TextWidget(
-                                                            color: AppColors
-                                                                .blackColor,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            text: 'Man',
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                      top: 0,
-                                                      right: 0,
-                                                      child: value.gender ==
-                                                              'Male'
-                                                          ? const SvgPic(
-                                                              image: AppImages
-                                                                  .checkYellow)
-                                                          : const SizedBox()),
-                                                ],
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                await context
-                                                    .read<BookRideProvider>()
-                                                    .selectGender(
-                                                        gender: 'Female');
-                                              },
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    elevation: 2,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            side: BorderSide(
-                                                              color: value.gender ==
-                                                                      'Female'
-                                                                  ? AppColors
-                                                                      .primary
-                                                                  : AppColors
-                                                                      .white,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12)),
-                                                    child: SizedBox(
-                                                      width: 150,
-                                                      height: 120,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                            width: 70,
-                                                            height: 70,
-                                                            decoration: BoxDecoration(
-                                                                color: AppColors
-                                                                    .greyStatusBar,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100)),
-                                                            child:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(8.0),
-                                                              child: SvgPic(
-                                                                image: AppImages
-                                                                    .women,
-                                                                fit: BoxFit
-                                                                    .contain,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          heightGap(10),
-                                                          const TextWidget(
-                                                            color: AppColors
-                                                                .blackColor,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            text: 'Woman',
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                      top: 0,
-                                                      right: 0,
-                                                      child: value.gender ==
-                                                              'Female'
-                                                          ? const SvgPic(
-                                                              image: AppImages
-                                                                  .checkYellow)
-                                                          : const SizedBox()),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                    // heightGap(10),
+                                    // TextWidget(
+                                    //   color: AppColors.blackColor,
+                                    //   fontWeight: FontWeight.w500,
+                                    //   text: AppLocalizations.of(context)!
+                                    //       .chooseDriverGender,
+                                    // ),
+                                    // heightGap(10),
+                                    // Consumer<BookRideProvider>(
+                                    //   builder: (context, value, child) {
+                                    //     return Row(
+                                    //       children: [
+                                    //         GestureDetector(
+                                    //           onTap: () async {
+                                    //             //  await  context.read<BookRideProvider>().updateLatLong();
+                                    //             await context
+                                    //                 .read<BookRideProvider>()
+                                    //                 .selectGender(
+                                    //                     gender: 'Male');
+                                    //           },
+                                    //           child: Stack(
+                                    //             children: [
+                                    //               Card(
+                                    //                 elevation: 2,
+                                    //                 shape:
+                                    //                     RoundedRectangleBorder(
+                                    //                         side: BorderSide(
+                                    //                           color: value.gender ==
+                                    //                                   'Male'
+                                    //                               ? AppColors
+                                    //                                   .primary
+                                    //                               : AppColors
+                                    //                                   .white,
+                                    //                         ),
+                                    //                         borderRadius:
+                                    //                             BorderRadius
+                                    //                                 .circular(
+                                    //                                     12)),
+                                    //                 child: SizedBox(
+                                    //                   width: 150,
+                                    //                   height: 120,
+                                    //                   child: Column(
+                                    //                     mainAxisAlignment:
+                                    //                         MainAxisAlignment
+                                    //                             .center,
+                                    //                     children: [
+                                    //                       Container(
+                                    //                         width: 70,
+                                    //                         height: 70,
+                                    //                         decoration: BoxDecoration(
+                                    //                             color: AppColors
+                                    //                                 .greyStatusBar,
+                                    //                             borderRadius:
+                                    //                                 BorderRadius
+                                    //                                     .circular(
+                                    //                                         100)),
+                                    //                         child:
+                                    //                             const Padding(
+                                    //                           padding:
+                                    //                               EdgeInsets
+                                    //                                   .all(8.0),
+                                    //                           child: SvgPic(
+                                    //                             image: AppImages
+                                    //                                 .man,
+                                    //                             fit: BoxFit
+                                    //                                 .contain,
+                                    //                           ),
+                                    //                         ),
+                                    //                       ),
+                                    //                       heightGap(10),
+                                    //                       const TextWidget(
+                                    //                         color: AppColors
+                                    //                             .blackColor,
+                                    //                         fontWeight:
+                                    //                             FontWeight.w400,
+                                    //                         text: 'Man',
+                                    //                       ),
+                                    //                     ],
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               Positioned(
+                                    //                   top: 0,
+                                    //                   right: 0,
+                                    //                   child: value.gender ==
+                                    //                           'Male'
+                                    //                       ? const SvgPic(
+                                    //                           image: AppImages
+                                    //                               .checkYellow)
+                                    //                       : const SizedBox()),
+                                    //             ],
+                                    //           ),
+                                    //         ),
+                                    //         GestureDetector(
+                                    //           onTap: () async {
+                                    //             await context
+                                    //                 .read<BookRideProvider>()
+                                    //                 .selectGender(
+                                    //                     gender: 'Female');
+                                    //           },
+                                    //           child: Stack(
+                                    //             children: [
+                                    //               Card(
+                                    //                 elevation: 2,
+                                    //                 shape:
+                                    //                     RoundedRectangleBorder(
+                                    //                         side: BorderSide(
+                                    //                           color: value.gender ==
+                                    //                                   'Female'
+                                    //                               ? AppColors
+                                    //                                   .primary
+                                    //                               : AppColors
+                                    //                                   .white,
+                                    //                         ),
+                                    //                         borderRadius:
+                                    //                             BorderRadius
+                                    //                                 .circular(
+                                    //                                     12)),
+                                    //                 child: SizedBox(
+                                    //                   width: 150,
+                                    //                   height: 120,
+                                    //                   child: Column(
+                                    //                     mainAxisAlignment:
+                                    //                         MainAxisAlignment
+                                    //                             .center,
+                                    //                     children: [
+                                    //                       Container(
+                                    //                         width: 70,
+                                    //                         height: 70,
+                                    //                         decoration: BoxDecoration(
+                                    //                             color: AppColors
+                                    //                                 .greyStatusBar,
+                                    //                             borderRadius:
+                                    //                                 BorderRadius
+                                    //                                     .circular(
+                                    //                                         100)),
+                                    //                         child:
+                                    //                             const Padding(
+                                    //                           padding:
+                                    //                               EdgeInsets
+                                    //                                   .all(8.0),
+                                    //                           child: SvgPic(
+                                    //                             image: AppImages
+                                    //                                 .women,
+                                    //                             fit: BoxFit
+                                    //                                 .contain,
+                                    //                           ),
+                                    //                         ),
+                                    //                       ),
+                                    //                       heightGap(10),
+                                    //                       const TextWidget(
+                                    //                         color: AppColors
+                                    //                             .blackColor,
+                                    //                         fontWeight:
+                                    //                             FontWeight.w400,
+                                    //                         text: 'Woman',
+                                    //                       ),
+                                    //                     ],
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               Positioned(
+                                    //                   top: 0,
+                                    //                   right: 0,
+                                    //                   child: value.gender ==
+                                    //                           'Female'
+                                    //                       ? const SvgPic(
+                                    //                           image: AppImages
+                                    //                               .checkYellow)
+                                    //                       : const SizedBox()),
+                                    //             ],
+                                    //           ),
+                                    //         ),
+                                    //       ],
+                                    //     );
+                                    //   },
+                                    // ),
+
                                     heightGap(10),
                                     InkWell(
                                       onTap: () {
@@ -437,9 +432,7 @@ class _BookRideScreenState extends State<BookRideScreen> {
                                         );
                                       },
                                       child: ListTileCardWidget(
-                                          titleText:
-                                              AppLocalizations.of(context)!
-                                                  .cash),
+                                          titleText: 'Select payment method'),
                                     ),
                                     heightGap(10),
                                     InkWell(
@@ -449,8 +442,7 @@ class _BookRideScreenState extends State<BookRideScreen> {
                                         );
                                       },
                                       child: ListTileCardWidget(
-                                        titleText: AppLocalizations.of(context)!
-                                            .bookForSelf,
+                                        titleText: 'Pick up another rider?',
                                       ),
                                     ),
                                     heightGap(10),
