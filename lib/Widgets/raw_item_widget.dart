@@ -18,7 +18,7 @@ class RawItemWidget extends StatelessWidget {
           color: AppColors.greyHint,
         )),
         TextWidget(
-          text: 'sd',
+          text: value,
           fontSize: 16,
           fontWeight: FontWeight.w500,
           color: AppColors.blackColor,

@@ -154,7 +154,7 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
         body: TabBarView(physics: NeverScrollableScrollPhysics(), children: [
-          isIceland
+          isIceland == false
               ? Center(
                   child: Text(
                     'You are not in Iceland',
@@ -162,7 +162,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                 )
               : ActiveWidget(),
-          isIceland
+          isIceland == false
               ? Center(
                   child: Text(
                     'You are not in Iceland',
@@ -170,7 +170,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                 )
               : CompletedWidget(),
-          isIceland
+          isIceland == false
               ? Center(
                   child: Text(
                     'You are not in Iceland',

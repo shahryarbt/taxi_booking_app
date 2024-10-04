@@ -4,6 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi/CommonWidgets/custom_scaffold.dart';
 import 'package:taxi/CommonWidgets/elevated_button_widget.dart';
 import 'package:taxi/CommonWidgets/text_widget.dart';
@@ -75,6 +76,13 @@ class _BookRideScreenState extends State<BookRideScreen> {
       }
     });
     super.initState();
+  }
+
+  bool isPromoapplied = false;
+  Future checkPromocodeSelection() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    isPromoapplied = sp.getBool('promoCodeApplied') ?? false;
+    setState(() {});
   }
 
   @override
@@ -195,13 +203,22 @@ class _BookRideScreenState extends State<BookRideScreen> {
                                                         .vehicleList[index];
                                                     return VehicleDetailCardWidget(
                                                         onTap: () async {
-                                                          print(vehicle.userId);
-                                                          context
-                                                              .read<
-                                                                  BookRideProvider>()
-                                                              .driverId = vehicle
-                                                                  .userId ??
-                                                              '';
+                                                          print(vehicle
+                                                              .vehicleId);
+                                                          setState(() {});
+                                                          SharedPreferences sp =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          await sp.setString(
+                                                              'selectedVehicleId',
+                                                              vehicle.userId
+                                                                  .toString());
+                                                          // context
+                                                          //     .read<
+                                                          //         BookRideProvider>()
+                                                          //     .driverId = vehicle
+                                                          //         .userId ??
+                                                          //     '';
                                                           await context
                                                               .read<
                                                                   BookRideProvider>()
@@ -468,94 +485,106 @@ class _BookRideScreenState extends State<BookRideScreen> {
                               right: 0,
                               child: CommonFooterWidget(
                                   cartItem: ElevatedButtonWidget(
-                                onPressed: () {
-                                  if (context
-                                          .read<BookRideProvider>()
-                                          .selectedVehicleType ==
-                                      null) {
-                                    var msg = AppLocalizations.of(context)!
-                                        .selectVehicle;
+                                onPressed: () async {
+                                  await checkPromocodeSelection();
+                                  if (isPromoapplied) {
                                     if (context
+                                            .read<BookRideProvider>()
+                                            .selectedVehicleType ==
+                                        null) {
+                                      var msg = AppLocalizations.of(context)!
+                                          .selectVehicle;
+                                      if (context
+                                          .read<BookRideProvider>()
+                                          .vehicleList
+                                          .isEmpty) {}
+                                      showSnackBar(
+                                          context: context,
+                                          message: AppLocalizations.of(context)!
+                                              .selectVehicle,
+                                          isSuccess: false);
+                                      return;
+                                    }
+                                    if (context
+                                        .read<DestinationProvider>()
+                                        .dropLocationController
+                                        .text
+                                        .trim()
+                                        .isEmpty) {
+                                      showSnackBar(
+                                          context: context,
+                                          message: AppLocalizations.of(context)!
+                                              .selectDestination,
+                                          isSuccess: false);
+                                      return;
+                                    }
+                                    context
                                         .read<BookRideProvider>()
-                                        .vehicleList
-                                        .isEmpty) {}
+                                        .bookRideApi(
+                                          context: context,
+                                          pickUpLat: context
+                                                  .read<HomeProvider>()
+                                                  .currentPosition
+                                                  ?.latitude ??
+                                              0.0,
+                                          pickUpLong: context
+                                                  .read<HomeProvider>()
+                                                  .currentPosition
+                                                  ?.longitude ??
+                                              0.0,
+                                          destinationLat: context
+                                                  .read<DestinationProvider>()
+                                                  .selectedPredictionLatLong
+                                                  ?.latitude ??
+                                              0.0,
+                                          destinationLong: context
+                                                  .read<DestinationProvider>()
+                                                  .selectedPredictionLatLong
+                                                  ?.longitude ??
+                                              0.0,
+                                          gender: context
+                                              .read<BookRideProvider>()
+                                              .gender,
+                                          vehicleType: context
+                                              .read<BookRideProvider>()
+                                              .selectedVehicleType!
+                                              .vehicleType
+                                              .toString(),
+                                          amount: '',
+                                          pickUpAddress: context
+                                              .read<DestinationProvider>()
+                                              .yourLocationController
+                                              .text,
+                                          destinationAddress: context
+                                              .read<DestinationProvider>()
+                                              .dropLocationController
+                                              .text,
+                                          bookForSelf: true,
+                                          rideType: context
+                                                  .read<BookRideProvider>()
+                                                  .isRideNow
+                                              ? 'Now'
+                                              : 'Scheduled',
+                                          paymentType: context
+                                              .read<BookRideProvider>()
+                                              .paymentMethod,
+                                          bookingDate: context
+                                                  .read<BookRideProvider>()
+                                                  .isRideNow
+                                              ? DateTime.now()
+                                                  .toUtc()
+                                                  .toString()
+                                              : context
+                                                  .read<BookRideProvider>()
+                                                  .scheduleTime
+                                                  .toString(),
+                                        );
+                                  } else {
                                     showSnackBar(
                                         context: context,
-                                        message: AppLocalizations.of(context)!
-                                            .selectVehicle,
+                                        message: 'Please apply promo',
                                         isSuccess: false);
-                                    return;
                                   }
-                                  if (context
-                                      .read<DestinationProvider>()
-                                      .dropLocationController
-                                      .text
-                                      .trim()
-                                      .isEmpty) {
-                                    showSnackBar(
-                                        context: context,
-                                        message: AppLocalizations.of(context)!
-                                            .selectDestination,
-                                        isSuccess: false);
-                                    return;
-                                  }
-                                  context.read<BookRideProvider>().bookRideApi(
-                                        context: context,
-                                        pickUpLat: context
-                                                .read<HomeProvider>()
-                                                .currentPosition
-                                                ?.latitude ??
-                                            0.0,
-                                        pickUpLong: context
-                                                .read<HomeProvider>()
-                                                .currentPosition
-                                                ?.longitude ??
-                                            0.0,
-                                        destinationLat: context
-                                                .read<DestinationProvider>()
-                                                .selectedPredictionLatLong
-                                                ?.latitude ??
-                                            0.0,
-                                        destinationLong: context
-                                                .read<DestinationProvider>()
-                                                .selectedPredictionLatLong
-                                                ?.longitude ??
-                                            0.0,
-                                        gender: context
-                                            .read<BookRideProvider>()
-                                            .gender,
-                                        vehicleType: context
-                                            .read<BookRideProvider>()
-                                            .selectedVehicleType!
-                                            .vehicleType
-                                            .toString(),
-                                        amount: '',
-                                        pickUpAddress: context
-                                            .read<DestinationProvider>()
-                                            .yourLocationController
-                                            .text,
-                                        destinationAddress: context
-                                            .read<DestinationProvider>()
-                                            .dropLocationController
-                                            .text,
-                                        bookForSelf: true,
-                                        rideType: context
-                                                .read<BookRideProvider>()
-                                                .isRideNow
-                                            ? 'Now'
-                                            : 'Scheduled',
-                                        paymentType: context
-                                            .read<BookRideProvider>()
-                                            .paymentMethod,
-                                        bookingDate: context
-                                                .read<BookRideProvider>()
-                                                .isRideNow
-                                            ? DateTime.now().toUtc().toString()
-                                            : context
-                                                .read<BookRideProvider>()
-                                                .scheduleTime
-                                                .toString(),
-                                      );
                                 },
                                 text:
                                     "${AppLocalizations.of(context)!.bookMini} ",

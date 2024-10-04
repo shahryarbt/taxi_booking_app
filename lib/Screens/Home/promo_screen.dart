@@ -2,6 +2,7 @@ import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi/CommonWidgets/custom_scaffold.dart';
 import 'package:taxi/CommonWidgets/elevated_button_widget.dart';
 import 'package:taxi/CommonWidgets/text_form_field_widget.dart';
@@ -127,6 +128,13 @@ class _PromoScreenState extends State<PromoScreen> {
                                                     WidgetStateProperty.all<Color>(
                                                         AppColors.primary)),
                                             onPressed: () async {
+                                              print('prmo applied');
+
+                                              SharedPreferences sp =
+                                                  await SharedPreferences
+                                                      .getInstance();
+
+                                              setState(() {});
                                               await context
                                                   .read<BookRideProvider>()
                                                   .selectCoupon(
@@ -136,6 +144,8 @@ class _PromoScreenState extends State<PromoScreen> {
                                               Clipboard.setData(ClipboardData(
                                                   text:
                                                       promo?.promoCode ?? ''));
+                                              await sp.setBool(
+                                                  'promoCodeApplied', true);
                                               showSnackBar(
                                                   context: context,
                                                   message: AppLocalizations.of(
@@ -204,7 +214,7 @@ class _PromoScreenState extends State<PromoScreen> {
               ),
               heightGap(8),
               ElevatedButtonWidget(
-                onPressed: () {                  
+                onPressed: () {
                   //  Navigator.of(context).pushNamed(BookForSelfScreen.routeName);
                   Navigator.of(context).pop();
                 },

@@ -88,14 +88,14 @@ class AuthProvider with ChangeNotifier {
     showLoaderDialog(context);
     final data = await RemoteService()
         .callPostApi(context: context, url: tSignUp, jsonData: {
-      "countryCode": countryCode.toString().replaceAll("+", ""),
-      "mobileNumber": _phone,
+      // "countryCode": countryCode.toString().replaceAll("+", ""),
+      // "mobileNumber": _phone,
       "password": _password,
       "name": _name,
       "email": _email,
       "type": "User",
       "loginType": "Email",
-      "gender": selectedGender,
+      // "gender": selectedGender,
       "deviceType": osType ?? 'Android',
       "deviceToken": sharedPrefs?.getString(AppStrings.fcm)
     });
@@ -137,16 +137,16 @@ class AuthProvider with ChangeNotifier {
     required BuildContext context,
     required String otp,
     required String phone,
+    required String email,
   }) async {
     showLoaderDialog(context);
-    final data = await RemoteService().callPostApi(
-        context: context,
-        url: tVerifyOtpAuthenticateNew,
-        jsonData: {
-          "countryCode": countryCode.toString().replaceAll("+", ""),
-          "mobileNumber": phone,
-          "otp": otp,
-        });
+    final data = await RemoteService()
+        .callPostApi(context: context, url: tVerifyOtp, jsonData: {
+      // "countryCode": countryCode.toString().replaceAll("+", ""),
+      "email": email,
+      // "mobileNumber": phone,
+      "otp": otp,
+    });
 
     if (data == null) {
       hideLoader(context);
@@ -301,8 +301,8 @@ class AuthProvider with ChangeNotifier {
     final data = await RemoteService()
         .callPostApi(context: context, url: tLogin, jsonData: {
       // "countryCode": countryCode.toString().replaceAll("+", ""),
-      "email": 'shahryarenfixo@gmail.com',
-      "password": '1234567890',
+      "email": email,
+      "password": password,
       "type": "User",
       "deviceType": osType ?? 'Android',
       // "deviceToken": sharedPrefs?.getString(AppStrings.fcm)

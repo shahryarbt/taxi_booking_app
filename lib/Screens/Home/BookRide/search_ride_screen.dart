@@ -188,7 +188,7 @@ class _SearchRideScreenState extends State<SearchRideScreen> {
                         ElevatedButtonWidget(
                           onPressed: () {
                             // showCancelDialog(context, widget.bookingId ?? '');
-                            // Navigator.pop(context);
+                            Navigator.pop(context);
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(

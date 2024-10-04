@@ -115,6 +115,7 @@ class _AddMoneyState extends State<AddMoney> {
                             ),
                             heightGap(16),
                             TextFormFieldWidget(
+                              keyboardType: TextInputType.number,
                               focusNode: _focusNode, // Pass the focus node here
                               controller: _controller,
                               fillColor: AppColors.white,

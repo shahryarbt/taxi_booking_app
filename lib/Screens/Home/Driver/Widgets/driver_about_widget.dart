@@ -108,60 +108,21 @@ class DriverAboutWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: AppColors.blackColor,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: TextWidget(
-                      text: 'Car Number', fontSize: 15,
-                      // fontWeight: FontWeight.w700,
-                      color: AppColors.black,
-                    )),
-                    TextWidget(
-                      text: 'ECT-1090',
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.greyHint,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: TextWidget(
-                      text: 'Car Model', fontSize: 15,
-                      // fontWeight: FontWeight.w700,
-                      color: AppColors.black,
-                    )),
-                    TextWidget(
-                      text: 'Honda Civic',
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.greyHint,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: TextWidget(
-                      text: 'Car Color', fontSize: 15,
-                      // fontWeight: FontWeight.w700,
-                      color: AppColors.black,
-                    )),
-                    TextWidget(
-                      text: 'White',
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.greyHint,
-                    ),
-                  ],
-                ),
-                // RawItemWidget(
-                //     title: AppLocalizations.of(context)!.carModel,
-                //     value: value.driverData?.carDetails?.carModel ?? ''),
-                // RawItemWidget(
-                //     title: AppLocalizations.of(context)!.carColor,
-                //     value: value.driverData?.carDetails?.carColor ?? ''),
+                value.driverData?.carDetails?.carModel == ''
+                    ? Text('')
+                    : RawItemWidget(
+                        title: AppLocalizations.of(context)!.carModel,
+                        value: value.driverData?.carDetails?.carModel ?? ''),
+                value.driverData?.carDetails?.carModel == ''
+                    ? Text('')
+                    : RawItemWidget(
+                        title: AppLocalizations.of(context)!.carNumber,
+                        value: value.driverData?.carDetails?.carNumber ?? ''),
+                value.driverData?.carDetails?.carColor == ''
+                    ? Text('')
+                    : RawItemWidget(
+                        title: AppLocalizations.of(context)!.carColor,
+                        value: value.driverData?.carDetails?.carColor ?? ''),
               ],
             ),
           );

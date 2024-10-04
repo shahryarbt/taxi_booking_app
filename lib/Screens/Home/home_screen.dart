@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi/CommonWidgets/custom_scaffold.dart';
 import 'package:taxi/CommonWidgets/text_form_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,9 +33,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  clearPrefs() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.remove('promoCodeApplied');
+    await sp.remove('selectedVehicleId');
+    setState(() {});
+  }
+
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
+      clearPrefs();
       context.read<BookRideProvider>().initSocket(context);
       _goToCurrentLocation();
     });
@@ -150,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: 0,
                 right: 0,
                 child: Container(
-                  height: 254,
+                  height: 234,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -218,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 child: SizedBox(
                                   width: 150,
-                                  height: 150,
+                                  height: 130,
                                   child: Card(
                                     color: AppColors.primary,
                                     child: Column(
@@ -270,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Consumer<ManageAddressProvider>(
                                   builder: (context, value, child) {
                                     return SizedBox(
-                                      height: 150,
+                                      height: 130,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount:
@@ -318,8 +327,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .routeName);
                                                 },
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      12.0),
+                                                  padding:
+                                                      const EdgeInsets.all(5.0),
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -350,9 +359,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       heightGap(10),
                                                       Center(
                                                         child: TextWidget(
-                                                          text: address
-                                                                  ?.addressType ??
-                                                              '',
+                                                          text: 'Saved Address',
+                                                          //  text: address
+                                                          //     ?.addressType ??
+                                                          // '',
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           fontSize: 16,
@@ -372,7 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 '',
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        fontSize: 13,
+                                                        fontSize: 12,
                                                         color:
                                                             AppColors.greyText,
                                                       ),

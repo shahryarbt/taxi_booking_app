@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxi/Models/get_driver_details_model.dart';
 import 'package:taxi/Remote/remote_service.dart';
 import 'package:taxi/Utils/helper_methods.dart';
@@ -17,7 +18,8 @@ class DriverProvider with ChangeNotifier {
     required String driverId,
   }) async {
     isLoading = true;
-
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    driverId = sp.getString('selectedVehicleId') ?? '0';
     final data = await RemoteService().callGetApi(
       context: context,
       url: '$tGetDriverDetails?driver_id=$driverId',

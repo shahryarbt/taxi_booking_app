@@ -58,7 +58,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   @override
   void dispose() {
     _timer.cancel();
-    otpController.dispose();
+    // otpController.dispose();
     super.dispose();
   }
 
@@ -164,6 +164,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                     return;
                   }
                   context.read<AuthProvider>().verifyOtpApiSignUp(
+                      email: context.read<AuthProvider>().getEmail,
                       context: context,
                       otp: otpController.text,
                       phone: context.read<AuthProvider>().getPhone);
@@ -234,6 +235,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   }
                   log('verify otp from general');
                   context.read<AuthProvider>().verifyOtpApiSignUp(
+                      email: context.read<AuthProvider>().getEmail,
                       context: context,
                       otp: otpController.text,
                       phone: context.read<AuthProvider>().getPhone);

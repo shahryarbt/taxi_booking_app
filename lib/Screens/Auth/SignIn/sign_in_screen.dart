@@ -251,62 +251,83 @@ class SignInScreen extends StatelessWidget {
                               text: AppLocalizations.of(context)!.welcomeBack,
                             ),
                           ),
+                          // heightGap(10),
+                          // TextWidget(
+                          //   color: AppColors.blackColor,
+                          //   fontWeight: FontWeight.w500,
+                          //   text: AppLocalizations.of(context)!.phoneNumber,
+                          // ),
+                          // Container(
+                          //     decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(8),
+                          //         border:
+                          //             Border.all(color: AppColors.greyBorder)),
+                          //     child: Row(
+                          //       children: [
+                          //         CountryCodePicker(
+                          //           onChanged: (value) {
+                          //             context
+                          //                 .read<AuthProvider>()
+                          //                 .changeCountryCode(
+                          //                     countryCode:
+                          //                         value.dialCode.toString());
+                          //           },
+                          //           // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                          //           initialSelection: 'IS',
+                          //           favorite: const ['+354'],
+                          //           // optional. Shows only country name and flag
+                          //           showCountryOnly: false,
+                          //           // optional. Shows only country name and flag when popup is closed.
+                          //           showOnlyCountryWhenClosed: false,
+                          //           // optional. aligns the flag and the Text left
+                          //           alignLeft: false,
+                          //           showFlagMain: false,
+                          //         ),
+                          //         const SizedBox(
+                          //           height: 25,
+                          //           child: VerticalDivider(
+                          //             color: AppColors.greyBorder,
+                          //           ),
+                          //         ),
+                          //         Expanded(
+                          //           child: TextFormFieldWidget(
+                          //             showBorder: false,
+                          //             keyboardType: TextInputType.number,
+                          //             controller: emailController,
+                          //             maxLength: 13,
+                          //             hintText: AppLocalizations.of(context)!
+                          //                 .phoneNumber,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     )),
+                          // // TextFormFieldWidget(
+                          // //   hintText: AppLocalizations.of(context)!.enterEmail,
+                          // //   controller: emailController,
+                          // //   keyboardType: TextInputType.emailAddress,
+                          // //   validator: (value) => Validations.instance.emailValidation(value!),
+                          // // ),
                           heightGap(10),
                           TextWidget(
                             color: AppColors.blackColor,
                             fontWeight: FontWeight.w500,
-                            text: AppLocalizations.of(context)!.phoneNumber,
+                            text: 'Email',
                           ),
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border:
-                                      Border.all(color: AppColors.greyBorder)),
-                              child: Row(
-                                children: [
-                                  CountryCodePicker(
-                                    onChanged: (value) {
-                                      context
-                                          .read<AuthProvider>()
-                                          .changeCountryCode(
-                                              countryCode:
-                                                  value.dialCode.toString());
-                                    },
-                                    // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                    initialSelection: 'IS',
-                                    favorite: const ['+354'],
-                                    // optional. Shows only country name and flag
-                                    showCountryOnly: false,
-                                    // optional. Shows only country name and flag when popup is closed.
-                                    showOnlyCountryWhenClosed: false,
-                                    // optional. aligns the flag and the Text left
-                                    alignLeft: false,
-                                    showFlagMain: false,
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                    child: VerticalDivider(
-                                      color: AppColors.greyBorder,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TextFormFieldWidget(
-                                      showBorder: false,
-                                      keyboardType: TextInputType.number,
-                                      controller: emailController,
-                                      maxLength: 13,
-                                      hintText: AppLocalizations.of(context)!
-                                          .phoneNumber,
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          // TextFormFieldWidget(
-                          //   hintText: AppLocalizations.of(context)!.enterEmail,
-                          //   controller: emailController,
-                          //   keyboardType: TextInputType.emailAddress,
-                          //   validator: (value) => Validations.instance.emailValidation(value!),
-                          // ),
+                          Consumer<AuthProvider>(
+                            builder: (context, value, child) {
+                              return TextFormFieldWidget(
+                                hintText: 'Please enter email',
+                                controller: emailController,
+                                isPassword: false,
+                                // obscureText: value.passwordObSecureLogin,
+                                onVisibilityIconTap: () {
+                                  value.changeObSecureForLogin();
+                                },
+                                validator: (value) => Validations.instance
+                                    .emailValidation(value!, context),
+                              );
+                            },
+                          ),
                           heightGap(10),
                           TextWidget(
                             color: AppColors.blackColor,
